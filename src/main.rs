@@ -43,18 +43,13 @@ fn main() -> Result<(), Box<Error>> {
 
 fn read(ctx: &mut ClipboardContext) -> Result<(), Box<Error>> {
     let mut stdout = io::stdout();
-
     stdout.write_all(ctx.get_contents()?.as_ref())?;
     stdout.flush()?;
-
     Ok(())
 }
 
 fn write(ctx: &mut ClipboardContext) -> Result<(), Box<Error>> {
     let mut content = String::new();
-
     io::stdin().read_to_string(&mut content)?;
-    ctx.set_contents(content)?;
-
-    Ok(())    
+    ctx.set_contents(content)
 }
