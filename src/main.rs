@@ -32,10 +32,8 @@ impl Mode {
 }
 
 fn main() -> Result<(), Box<Error>> {
-    let mode = Mode::from_args()?;
-    
     let mut ctx: ClipboardContext = ClipboardProvider::new()?;
-    match mode {
+    match Mode::from_args()? {
         Mode::Read => read(&mut ctx),
         Mode::Write => write(&mut ctx),
     }
