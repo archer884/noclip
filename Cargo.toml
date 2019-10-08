@@ -3,6 +3,13 @@ name = "noclip"
 version = "0.1.0"
 authors = ["J/A <archer884@gmail.com>"]
 edition = "2018"
+homepage = "https://github.com/archer884/noclip"
+repository = "https://github.com/archer884/noclip"
+documentation = "https://github.com/archer884/noclip"
+license="Unlicense"
+description = """
+A tool for copy/paste to and from stdin/stdout.
+"""
 
 [dependencies]
 clipboard = "0.5"
