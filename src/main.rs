@@ -29,10 +29,7 @@ fn write(ctx: &mut ClipboardContext, trim: bool) -> Result<()> {
     io::stdin().read_to_string(&mut content)?;
 
     if trim {
-        match content.rfind(|ch: char| !ch.is_whitespace()) {
-            Some(idx) => content.truncate(idx + 1),
-            None => content.truncate(0),
-        }
+        content.truncate(content.trim_end().len());
     }
 
     ctx.set_contents(content)?;
