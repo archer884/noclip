@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     let mut ctx: ClipboardContext = ClipboardProvider::new()?;
     match opt.mode() {
         Mode::Read => read(&mut ctx),
-        Mode::Write => write(&mut ctx),
+        Mode::Write { trim } => write(&mut ctx, trim),
     }
 }
 
@@ -24,9 +24,17 @@ fn read(ctx: &mut ClipboardContext) -> Result<()> {
     Ok(())
 }
 
-fn write(ctx: &mut ClipboardContext) -> Result<()> {
+fn write(ctx: &mut ClipboardContext, trim: bool) -> Result<()> {
     let mut content = String::new();
     io::stdin().read_to_string(&mut content)?;
+
+    if trim {
+        match content.rfind(|ch: char| !ch.is_whitespace()) {
+            Some(idx) => content.truncate(idx + 1),
+            None => content.truncate(0),
+        }
+    }
+
     ctx.set_contents(content)?;
     Ok(())
 }

@@ -20,7 +20,7 @@ impl Opt {
 #[derive(Copy, Clone, Debug)]
 pub enum Mode {
     Read,
-    Write,
+    Write { trim: bool },
 }
 
 impl FromStr for Mode {
@@ -28,7 +28,8 @@ impl FromStr for Mode {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "c" | "copy" => Ok(Mode::Write),
+            "c" | "copy" => Ok(Mode::Write { trim: false }),
+            "t" | "trim" => Ok(Mode::Write { trim: true }),
             "v" | "p" | "paste" => Ok(Mode::Read),
 
             _ => Err(ParseModeError),

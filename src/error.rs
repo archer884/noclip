@@ -1,5 +1,5 @@
-use std::io;
 use std::fmt::{self, Display};
+use std::io;
 use std::{error, result};
 
 pub type Result<T> = result::Result<T, Error>;

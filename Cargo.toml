@@ -1,6 +1,6 @@
 [package]
 name = "noclip"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["J/A <archer884@gmail.com>"]
 edition = "2018"
 homepage = "https://github.com/archer884/noclip"
@@ -12,5 +12,5 @@ A tool for copy/paste to and from stdin/stdout.
 """
 
 [dependencies]
-clipboard = "0.5"
-structopt = "0.2"
+clipboard = "0.5.0"
+structopt = "0.3.22"
