@@ -1,14 +1,16 @@
-use crate::error::ParseModeError;
 use std::str::FromStr;
+
 use structopt::StructOpt;
 
+use crate::error::ParseModeError;
+
 #[derive(Copy, Clone, Debug, StructOpt)]
-pub struct Opt {
+pub struct Opts {
     mode: Mode,
 }
 
-impl Opt {
-    pub fn from_args() -> Self {
+impl Opts {
+    pub fn parse() -> Self {
         StructOpt::from_args()
     }
 

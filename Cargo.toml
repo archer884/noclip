@@ -12,5 +12,7 @@ A tool for copy/paste to and from stdin/stdout.
 """
 
 [dependencies]
+anyhow = "1.0.42"
 clipboard = "0.5.0"
 structopt = "0.3.22"
+x11-clipboard = "0.5.2"
