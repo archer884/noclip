@@ -1,16 +1,18 @@
 [package]
 name = "noclip"
-version = "0.2.0"
-authors = ["J/A <archer884@gmail.com>"]
-edition = "2018"
+version = "0.3.0"
+authors = ["John M Archer <archer884@zoho.com"]
+edition = "2021"
 homepage = "https://github.com/archer884/noclip"
 repository = "https://github.com/archer884/noclip"
 documentation = "https://github.com/archer884/noclip"
-license="Unlicense"
+license = "Unlicense"
 description = """
 A tool for copy/paste to and from stdin/stdout.
 """
 
 [dependencies]
-clipboard = "0.5.0"
-structopt = "0.3.22"
+arboard = "2.1.1"
+clap = { version = "3.2.7", features = ["derive"] }
+# spispopd = { path = "../spispopd" }
+thiserror = "1.0.31"

@@ -1,37 +1,63 @@
-mod error;
-mod opt;
-
-use crate::{
-    error::Result,
-    opt::{Mode, Opt},
+use std::{
+    io::{self, Read},
+    process,
 };
-use clipboard::{ClipboardContext, ClipboardProvider};
-use std::io::{self, Read, Write};
 
-fn main() -> Result<()> {
-    let opt = Opt::from_args();
-    let mut ctx: ClipboardContext = ClipboardProvider::new()?;
-    match opt.mode() {
-        Mode::Read => read(&mut ctx),
-        Mode::Write { trim } => write(&mut ctx, trim),
+use arboard::Clipboard;
+use clap::{Parser, Subcommand};
+
+type Result<T, E = Error> = std::result::Result<T, E>;
+
+#[derive(Clone, Debug, Parser)]
+struct Args {
+    #[clap(subcommand)]
+    command: Command,
+}
+
+#[derive(Clone, Copy, Debug, Subcommand)]
+enum Command {
+    #[clap(alias = "c")]
+    Copy,
+
+    #[clap(alias = "p", alias = "v")]
+    Paste,
+}
+
+#[derive(Debug, thiserror::Error)]
+enum Error {
+    #[error(transparent)]
+    Io(#[from] io::Error),
+
+    // #[error(transparent)]
+    // Clipboard(#[from] spispopd::Error),
+
+    #[error(transparent)]
+    Clipboard(#[from] arboard::Error),
+}
+
+fn main() {
+    if let Err(e) = run(&Args::parse()) {
+        eprintln!("{e}");
+        process::exit(1);
     }
 }
 
-fn read(ctx: &mut ClipboardContext) -> Result<()> {
-    let mut stdout = io::stdout();
-    stdout.write_all(ctx.get_contents()?.as_ref())?;
-    stdout.flush()?;
+fn run(args: &Args) -> Result<()> {
+    match args.command {
+        Command::Copy => set(),
+        Command::Paste => get(),
+    }
+}
+
+fn set() -> Result<()> {
+    let mut buf = String::new();
+    let text = io::stdin().lock().read_to_string(&mut buf).map(|_| buf)?;
+    Clipboard::new()?.set_text(text)?;
     Ok(())
 }
 
-fn write(ctx: &mut ClipboardContext, trim: bool) -> Result<()> {
-    let mut content = String::new();
-    io::stdin().read_to_string(&mut content)?;
-
-    if trim {
-        content.truncate(content.trim_end().len());
-    }
-
-    ctx.set_contents(content)?;
+fn get() -> Result<()> {
+    let text = Clipboard::new()?.get_text()?;
+    println!("{text}");
     Ok(())
 }
