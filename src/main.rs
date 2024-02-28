@@ -17,8 +17,10 @@ struct Args {
 #[derive(Clone, Copy, Debug, Subcommand)]
 enum Command {
     #[clap(alias = "c")]
-    Copy,
-
+    Copy {
+        #[arg(short, long)]
+        trim: bool,
+    },
     #[clap(alias = "p", alias = "v")]
     Paste,
 }
@@ -30,7 +32,6 @@ enum Error {
 
     // #[error(transparent)]
     // Clipboard(#[from] spispopd::Error),
-
     #[error(transparent)]
     Clipboard(#[from] arboard::Error),
 }
@@ -44,15 +45,21 @@ fn main() {
 
 fn run(args: &Args) -> Result<()> {
     match args.command {
-        Command::Copy => set(),
+        Command::Copy { trim } => set(trim),
         Command::Paste => get(),
     }
 }
 
-fn set() -> Result<()> {
+fn set(trim: bool) -> Result<()> {
     let mut buf = String::new();
     let text = io::stdin().lock().read_to_string(&mut buf).map(|_| buf)?;
-    Clipboard::new()?.set_text(text)?;
+
+    if trim {
+        Clipboard::new()?.set_text(text.trim())?;
+    } else {
+        Clipboard::new()?.set_text(text)?;
+    }
+
     Ok(())
 }
 
