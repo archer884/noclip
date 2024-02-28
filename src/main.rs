@@ -29,9 +29,6 @@ enum Command {
 enum Error {
     #[error(transparent)]
     Io(#[from] io::Error),
-
-    // #[error(transparent)]
-    // Clipboard(#[from] spispopd::Error),
     #[error(transparent)]
     Clipboard(#[from] arboard::Error),
 }

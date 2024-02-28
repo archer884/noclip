@@ -14,5 +14,4 @@ A tool for copy/paste to and from stdin/stdout.
 [dependencies]
 arboard = "3.3.1"
 clap = { version = "4.5.1", features = ["derive"] }
-# spispopd = { path = "../spispopd" }
 thiserror = "1.0.57"
