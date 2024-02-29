@@ -16,13 +16,21 @@ struct Args {
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 enum Command {
+    /// copy text
     #[clap(alias = "c")]
     Copy {
+        /// trim text on copy
         #[arg(short, long)]
         trim: bool,
     },
+
+    /// past text
     #[clap(alias = "p", alias = "v")]
     Paste,
+    
+    /// copy text but trim by default
+    #[clap(alias = "x")]
+    XCopy,
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -43,6 +51,7 @@ fn main() {
 fn run(args: &Args) -> Result<()> {
     match args.command {
         Command::Copy { trim } => set(trim),
+        Command::XCopy => set(true),
         Command::Paste => get(),
     }
 }
