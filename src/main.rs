@@ -29,7 +29,7 @@ enum Command {
     Paste,
     
     /// copy text but trim by default
-    #[clap(alias = "x")]
+    #[clap(alias = "x", alias = "ct")]
     XCopy,
 }
 
