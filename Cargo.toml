@@ -1,6 +1,6 @@
 [package]
 name = "noclip"
-version = "0.3.2"
+version = "0.3.3"
 authors = ["John M Archer <archer884@zoho.com"]
 edition = "2021"
 homepage = "https://github.com/archer884/noclip"
@@ -20,3 +20,5 @@ thiserror = "2.0.12"
 lto = true
 codegen-units = 1
 panic = "abort"
+opt-level = "z"
+strip = true
