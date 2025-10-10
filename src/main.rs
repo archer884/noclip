@@ -11,7 +11,7 @@ type Result<T, E = Error> = std::result::Result<T, E>;
 #[derive(Clone, Debug, Parser)]
 struct Args {
     #[clap(subcommand)]
-    command: Command,
+    command: Option<Command>,
 }
 
 #[derive(Clone, Copy, Debug, Subcommand)]
@@ -27,7 +27,7 @@ enum Command {
     /// past text
     #[clap(alias = "p", alias = "v")]
     Paste,
-    
+
     /// copy text but trim by default
     #[clap(alias = "x", alias = "ct")]
     XCopy,
@@ -50,9 +50,10 @@ fn main() {
 
 fn run(args: &Args) -> Result<()> {
     match args.command {
-        Command::Copy { trim } => set(trim),
-        Command::XCopy => set(true),
-        Command::Paste => get(),
+        None => set(false),
+        Some(Command::Copy { trim }) => set(trim),
+        Some(Command::XCopy) => set(true),
+        Some(Command::Paste) => get(),
     }
 }
 

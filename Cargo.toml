@@ -1,6 +1,6 @@
 [package]
 name = "noclip"
-version = "0.3.3"
+version = "0.3.4"
 authors = ["John M Archer <archer884@zoho.com"]
 edition = "2021"
 homepage = "https://github.com/archer884/noclip"
@@ -12,9 +12,9 @@ A tool for copy/paste to and from stdin/stdout.
 """
 
 [dependencies]
-arboard = "3.5.0"
-clap = { version = "4.5.40", features = ["derive", "wrap_help"] }
-thiserror = "2.0.12"
+arboard = "3.6.1"
+clap = { version = "4.5.48", features = ["derive", "wrap_help"] }
+thiserror = "2.0.17"
 
 [profile.release]
 lto = true
