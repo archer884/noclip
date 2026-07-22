@@ -1,6 +1,6 @@
 [package]
 name = "noclip"
-version = "0.3.5"
+version = "0.3.6"
 authors = ["John M Archer <archer884@zoho.com"]
 edition = "2024"
 homepage = "https://github.com/archer884/noclip"
