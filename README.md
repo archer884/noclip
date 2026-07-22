@@ -1,12 +1,24 @@
 # noclip
 
-The most important thing to know about `noclip` is that this software is named after a common cheat code. It was originally called `unclip`, but I realized after the fact that `noclip` is a cooler name and a little bit easier to type.
+```shell
+❯ noclip --help
+Usage: noclip [COMMAND]
 
-Noclip has two usage modes:
+Commands:
+  copy    copy text
+  paste   past text
+  x-copy  copy text but trim by default
+  help    Print this message or the help of the given subcommand(s)
 
-- Copy
-- Paste
+Options:
+  -h, --help  Print help
+```
 
-`noclip c` activates copy mode, which stores in the clipboard whatever you pipe to stdin. `noclip v` activates paste mode, which prints to stdout whatever is on the clipboard.
+Yes, it's named for a cheatcode. That's probably its best feature.
 
-God knows what this does with anything other than text. Have fun!
+Actual usage:
+
+```shell
+cat foo.txt | noclip # copy to clipboard
+noclip v | some-command-here # paste from clipboard
+```
